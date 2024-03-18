@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticket Selling Software</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- name adding section - start -->
+
+    <section>
+      <div class="d-flex fs-1 fs-5 justify-content-center pt-4">
+        <span>Add Name and payment status</span>
+      </div>
+
+      <div class="d-flex ms-5 ps-5 pt-5">
+        <form action="/add" method="POST">
+          <div class="py-3">
+            <input type="text" name="name" placeholder="Name" /><br />
+          </div>
+          <div class="py-3">
+            <input
+              type="text"
+              name="paidstatus"
+              placeholder="Paid Status"
+            /><br />
+          </div>
+
+          <input
+            type="text"
+            name="ticket"
+            placeholder="Ticket"
+            class="d-none"
+          />
+          <!-- Add ticket input field -->
+          <br />
+
+          <button onclick="addfunction()" type="submit">Add Item</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- name adding section - end -->
+
+    <!-- search section - start -->
+    <section>
+      <div class="ms-5 ps-5 pt-5">
+        <div>
+          <span> search </span>
+        </div>
+        <form action="/search" method="get">
+          <input type="text" name="query" placeholder="Search..." />
+          <input type="submit" value="Search" />
+        </form>
+        {% if namelist %}
+        <div class="ms-5 ps-5 pt-5">
+          {% for item in namelist %}
+          <div>
+            <p>Name: {{ item[1] }}</p>
+            <p>Paid Status: {{ item[2] }}</p>
+            <p>Ticket: {{ item[3] }}</p>
+            <form
+              action="{{ url_for('update_ticket', item_id=item[0]) }}"
+              method="post"
+            >
+              <input
+                type="text"
+                name="new_ticket"
+                placeholder="New Ticket Value"
+              />
+              <button onclick="updatefunction()" type="submit">
+                Update Ticket
+              </button>
+            </form>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+    <!-- search section - end -->
+
+    <!-- delete section - start -->
+
+    <section>
+      <div class="ms-5 ps-5 pt-5 pb-5">
+        <form
+          id="deleteForm"
+          action="{{ url_for('delete_selected_items') }}"
+          method="post"
+        >
+          {% for item in namelist %}
+          <li>
+            {{ item[1] }} - {{ item[2] }}
+            <input
+              type="checkbox"
+              name="selected_items"
+              value="{{ item[0] }}"
+            />
+          </li>
+          {% endfor %}
+
+          <div class="pt-5 mt-5">
+            <button type="button" onclick="deleteSelectedItems()">
+              Delete Selected
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- delete section - end -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      function deleteSelectedItems() {
+        var form = document.getElementById("deleteForm");
+        var checkboxes = form.querySelectorAll(
+          'input[name="selected_items"]:checked'
+        );
+        if (checkboxes.length === 0) {
+          alert("Please select at least one item to delete.");
+        } else {
+          if (confirm("Are you sure you want to delete the selected items?")) {
+            form.submit();
+          }
+        }
+      }
+
+      function updatefunction() {
+        alert("Ticket Status Updated ! ");
+      }
+      function addfunction() {
+        alert("Name Added !");
+      }
+    </script>
+  </body>
+</html>
