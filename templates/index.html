@@ -1,151 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ticket Selling Software</title>
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
-  </head>
-  <body>
-    <!-- name adding section - start -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ticket Selling Software</title>
 
-    <section>
-      <div class="d-flex fs-1 fs-5 justify-content-center pt-4">
-        <span>Add Name and payment status</span>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+</head>
+
+<body>
+  <!-- name adding section - start -->
+
+  <section>
+    <div class="container-fluid mb-3">
+      <div class="pt-4 pb-4">
+        <h1 class="text-center">Add Name and payment status</h1>
       </div>
-
-      <div class="d-flex ms-5 ps-5 pt-5">
-        <form action="/add" method="POST">
-          <div class="py-3">
-            <input type="text" name="name" placeholder="Name" /><br />
-          </div>
-          <div class="py-3">
-            <input
-              type="text"
-              name="paidstatus"
-              placeholder="Paid Status"
-            /><br />
-          </div>
-
-          <input
-            type="text"
-            name="ticket"
-            placeholder="Ticket"
-            class="d-none"
-          />
-          <!-- Add ticket input field -->
-          <br />
-
-          <button onclick="addfunction()" type="submit">Add Item</button>
-        </form>
+    
+      <div class="col-12 p-1 d-flex justify-content-center">
+        <div class="col-md-6 col-xxl-4 p-3 border rounded shadow-sm">
+          <form action="/add" method="POST">
+            <div class="mb-3">
+              <label class="form-label">Name:</label>
+              <input type="text" class="form-control" name="name" placeholder="Name">
+            </div>
+            <div class="mb-1">
+              <label class="form-label">Paid Status:</label>
+              <input type="text" class="form-control" name="paidstatus" placeholder="Paid Status">
+            </div>
+      
+            <input type="text" name="ticket" placeholder="Ticket" class="d-none" />
+            <!-- Add ticket input field -->
+            <br />
+      
+            <button class="btn btn-success d-flex justify-content-center align-items-center w-100" onclick="addfunction()" type="submit">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16">
+                <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11.0026 16L6.75999 11.7574L8.17421 10.3431L11.0026 13.1716L16.6595 7.51472L18.0737 8.92893L11.0026 16Z"></path>
+              </svg>&nbsp;
+              Add Item
+            </button>
+          </form>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- name adding section - end -->
+  <!-- name adding section - end -->
 
-    <!-- search section - start -->
-    <section>
-      <div class="ms-5 ps-5 pt-5">
+  <!-- search section - start -->
+  <section>
+    <div class="container-fluid d-flex justify-content-center mb-3">
+      <div class="col-md-6 col-xxl-4 p-3 border rounded shadow-sm">
         <div>
-          <span> search </span>
+          <h4>Search </h4>
         </div>
         <form action="/search" method="get">
-          <input type="text" name="query" placeholder="Search..." />
-          <input type="submit" value="Search" />
+          <div class="input-group">
+          <input type="text" class="form-control" name="query" placeholder="Search...">
+          <!-- <input type="submit" class="btn btn-dark" value="Search"> -->
+          <button type="submit" class="btn btn-dark d-flex justify-content-center align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16">
+              <path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z"></path>
+            </svg>&nbsp;
+            Search
+          </button>
+          </div>
         </form>
         {% if namelist %}
-        <div class="ms-5 ps-5 pt-5">
+        <div class="col-12">
           {% for item in namelist %}
-          <div>
-            <p>Name: {{ item[1] }}</p>
-            <p>Paid Status: {{ item[2] }}</p>
-            <p>Ticket: {{ item[3] }}</p>
-            <form
-              action="{{ url_for('update_ticket', item_id=item[0]) }}"
-              method="post"
-            >
-              <input
-                type="text"
-                name="new_ticket"
-                placeholder="New Ticket Value"
-              />
-              <button onclick="updatefunction()" type="submit">
-                Update Ticket
-              </button>
-            </form>
+          <div class="container-fluid p-1">
+            <div class="row m-0 p-1">
+              <div class="col-md-3 p-1">
+                Name
+              </div>
+              <div class="col-md-9 p-1">
+                :&nbsp;{{ item[1] }}
+              </div>
+              <div class="col-md-3 p-1">
+                Paid Status
+              </div>
+              <div class="col-md-9 p-1">
+                :&nbsp;{{ item[2] }}
+              </div>
+              <div class="col-md-3 p-1">
+                Ticket
+              </div>
+              <div class="col-md-9 p-1">
+                :&nbsp;{{ item[3] }}
+              </div>
+              <div class="col-8 p-1">
+                <form action="{{ url_for('update_ticket', item_id=item[0]) }}" method="post">
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="new_ticket" placeholder="New Ticket Value">
+                    <button class="btn btn-primary d-flex justify-content-center align-items-center" onclick="updatefunction()" type="submit">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16">
+                        <path d="M5.46257 4.43262C7.21556 2.91688 9.5007 2 12 2C17.5228 2 22 6.47715 22 12C22 14.1361 21.3302 16.1158 20.1892 17.7406L17 12H20C20 7.58172 16.4183 4 12 4C9.84982 4 7.89777 4.84827 6.46023 6.22842L5.46257 4.43262ZM18.5374 19.5674C16.7844 21.0831 14.4993 22 12 22C6.47715 22 2 17.5228 2 12C2 9.86386 2.66979 7.88416 3.8108 6.25944L7 12H4C4 16.4183 7.58172 20 12 20C14.1502 20 16.1022 19.1517 17.5398 17.7716L18.5374 19.5674Z"></path>
+                      </svg>&nbsp;
+                      Update Ticket
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
           {% endfor %}
         </div>
         {% endif %}
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- search section - end -->
+  <!-- search section - end -->
 
-    <!-- delete section - start -->
+  <!-- delete section - start -->
 
-    <section>
-      <div class="ms-5 ps-5 pt-5 pb-5">
-        <form
-          id="deleteForm"
-          action="{{ url_for('delete_selected_items') }}"
-          method="post"
-        >
+  <section>
+    <div class="container-fluid d-flex justify-content-center mb-3">
+      <div class="col-md-6 col-xxl-4 p-3 border rounded shadow-sm">
+        <form id="deleteForm" action="{{ url_for('delete_selected_items') }}" method="post">
           {% for item in namelist %}
-          <li>
-            {{ item[1] }} - {{ item[2] }}
-            <input
-              type="checkbox"
-              name="selected_items"
-              value="{{ item[0] }}"
-            />
-          </li>
+          <ul>
+            <li>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="selected_items" value="{{ item[0] }}" id="chekcbox01">
+                <label class="form-check-label" for="chekcbox01">
+                  {{ item[1] }} - {{ item[2] }}
+                </label>
+              </div>
+            </li>
+          </ul>          
           {% endfor %}
-
-          <div class="pt-5 mt-5">
-            <button type="button" onclick="deleteSelectedItems()">
+  
+          <div class="mt-3">
+            <button class="btn btn-danger w-100 d-flex justify-content-center align-items-center" type="button" onclick="deleteSelectedItems()">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16">
+                <path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"></path>
+              </svg>&nbsp;
               Delete Selected
             </button>
           </div>
         </form>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- delete section - end -->
+  <!-- delete section - end -->
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous"
-    ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
 
-    <script>
-      function deleteSelectedItems() {
-        var form = document.getElementById("deleteForm");
-        var checkboxes = form.querySelectorAll(
-          'input[name="selected_items"]:checked'
-        );
-        if (checkboxes.length === 0) {
-          alert("Please select at least one item to delete.");
-        } else {
-          if (confirm("Are you sure you want to delete the selected items?")) {
-            form.submit();
-          }
+  <script>
+    function deleteSelectedItems() {
+      var form = document.getElementById("deleteForm");
+      var checkboxes = form.querySelectorAll(
+        'input[name="selected_items"]:checked'
+      );
+      if (checkboxes.length === 0) {
+        alert("Please select at least one item to delete.");
+      } else {
+        if (confirm("Are you sure you want to delete the selected items?")) {
+          form.submit();
         }
       }
+    }
 
-      function updatefunction() {
-        alert("Ticket Status Updated ! ");
-      }
-      function addfunction() {
-        alert("Name Added !");
-      }
-    </script>
-  </body>
+    function updatefunction() {
+      alert("Ticket Status Updated ! ");
+    }
+    function addfunction() {
+      alert("Name Added !");
+    }
+  </script>
+</body>
+
 </html>
