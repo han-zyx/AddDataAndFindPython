@@ -1,0 +1,12 @@
+
+____build____
+
+docker build -t ticketapp .
+
+
+____run____
+
+docker run -p 5000:5000 ticketapp
+
+
+
